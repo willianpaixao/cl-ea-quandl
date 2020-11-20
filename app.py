@@ -1,20 +1,17 @@
-import os
-
-import quandl
 from flask import Flask, jsonify, request
+
+from adapter import Adapter
 
 app = Flask(__name__)
 
-if 'QUANDL_API_KEY' in os.environ:
-    quandl.ApiConfig.api_key = os.environ['QUANDL_API_KEY']
-else:
-    app.logger.info("Quandl's API key not found")
 
-
-@app.route('/', methods=['GET'])
-def index():
-    df = quandl.get(dataset=request.args.get('dataset'), rows=1)
-    return jsonify(df.iloc[0]['Value'])
+@app.route('/', methods=['POST'])
+def call_adapter():
+    data = request.get_json()
+    if data == '':
+        data = {}
+    adapter = Adapter(data)
+    return jsonify(adapter.result)
 
 
 if __name__ == '__main__':
