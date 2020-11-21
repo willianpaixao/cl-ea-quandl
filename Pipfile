@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 quandl = "*"
 requests = "*"
+schema = "*"
 
 [dev-packages]
 flake8 = "*"
