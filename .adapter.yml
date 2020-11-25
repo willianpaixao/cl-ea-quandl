@@ -1,0 +1,11 @@
+name: Quandl
+description: A wrapper on the Quandl API
+node_identifier: quandl
+platforms:
+  - Docker
+data_sources:
+  - name: Quandl
+    url: https://www.quandl.com/
+parameters:
+  - dataset
+  - rows
