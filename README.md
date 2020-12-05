@@ -33,3 +33,8 @@ You can easily build with Docker, by running:
 ``` bash
 $ docker image build --tag cl-ea-quandl:latest .
 ```
+### Testing
+Make sure you have installed all dependencies using `Pipfile`, then run:
+```
+$ FLASK_ENV=testing pytest --setup-show
+```
