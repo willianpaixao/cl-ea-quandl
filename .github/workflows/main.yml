@@ -24,6 +24,7 @@ jobs:
           pytest
         env:
           FLASK_ENV: testing
+          QUANDL_API_KEY: ${{ secrets.QUANDL_API_KEY }}
 
   build-and-push:
     needs: test
@@ -48,3 +49,4 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: willianpaixao/cl-ea-quandl:latest
           platforms: linux/386,linux/amd64,linux/arm64
+          labels: |

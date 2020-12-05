@@ -1,6 +1,6 @@
 # Chainlink external adapter for Quandl API
 
-![Build](https://github.com/willianpaixao/cl-ea-quandl/workflows/Build%20and%20push%20Docker%20image/badge.svg?branch=master)
+![Test, Build and push Docker image](https://github.com/willianpaixao/cl-ea-quandl/workflows/Test,%20Build%20and%20push%20Docker%20image/badge.svg?branch=master)
 ![CodeQL](https://github.com/willianpaixao/cl-ea-quandl/workflows/CodeQL/badge.svg?branch=master)
 ![Snyk](https://github.com/willianpaixao/cl-ea-quandl/workflows/Snyk%20vulnerability%20scan/badge.svg?branch=master)
 

@@ -15,6 +15,17 @@ def test_call_adapter(client):
     assert json_data.get('status') == 'errored'
 
 
+def test_request_fred(client):
+    rv = client.post('/', json={"id": 1, "data": {"dataset": "FRED/GDP"}})
+    json_data = rv.get_json()
+    assert json_data.get('statusCode') == 200
+    assert 'result' in json_data
+    rv = client.post('/', json={"id": 2, "data": {"dataset": "FRED/UNRATE", "rows": 2}})
+    json_data = rv.get_json()
+    assert json_data.get('statusCode') == 200
+    assert 'result' in json_data
+
+
 if __name__ == '__main__':
     # Calling pytest directly instead of the CLI
     pytest.main()
