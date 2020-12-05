@@ -1,25 +1,18 @@
-name: "CodeQL"
+name: CodeQL
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
         language: [ 'python' ]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
