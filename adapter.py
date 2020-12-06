@@ -26,8 +26,9 @@ class Adapter:
 
     def create_request(self):
         try:
-            self.result = self.bridge.request(self.request_data)
-            self.result_success(self.request_data)
+            data = self.request_data
+            data['result'] = self.bridge.request(self.request_data)
+            self.result_success(data)
         except Exception as e:
             self.result_error(e)
 
@@ -35,7 +36,6 @@ class Adapter:
         self.result = {
             'jobRunID': self.id,
             'data': data,
-            'result': self.result,
             'statusCode': 200,
         }
 
