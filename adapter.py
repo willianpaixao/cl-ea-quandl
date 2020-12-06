@@ -20,7 +20,8 @@ class Adapter:
         dataset key, False otherwise
         """
         schema = Schema({'dataset': str,
-                         Optional('rows'): And(int, lambda n: 0 < n)})
+                         Optional('rows'): And(int, lambda n: 0 < n)},
+                        ignore_extra_keys=True)
         return schema.is_valid(self.request_data)
 
     def create_request(self):
