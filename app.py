@@ -14,13 +14,18 @@ def create_app(test_config=None):
     else:
         app.config.update(test_config)
 
+    @app.before_request
+    def log_request_info():
+        app.logger.debug('Headers: %s', request.headers)
+        app.logger.debug('Body: %s', request.get_data())
+
     @app.route('/', methods=['POST'])
     def call_adapter():
         data = request.get_json()
         if data == '':
             data = {}
         adapter = Adapter(data)
-        return jsonify(adapter.result)
+        return jsonify(adapter.result), adapter.result['statusCode']
 
     @app.route('/healthcheck', methods=['GET'])
     def healthcheck():

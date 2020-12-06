@@ -9,13 +9,13 @@
 
 Once you have it, simply run the image:
 ``` bash
-$ docker container run --rm --detach --name cl-ea-quandl --publish 8080:8080 --env QUANDL_API_KEY=[INSERT HERE YOUR KEY] willianpaixao/cl-ea-quandl:latest
+$ docker container run --rm --detach --name cl-ea-quandl --publish 5000:5000 --env QUANDL_API_KEY=[INSERT HERE YOUR KEY] willianpaixao/cl-ea-quandl:latest
 ```
 > NOTE: don't forget to replace with your API key
 
 To quickly test, make a request using `curl`:
 ``` bash
-$ curl --request POST --header "Content-Type: application/json" --data '{"id": 1, "data": {"dataset": "FRED/GDP"}}' localhost:8080
+$ curl --request POST --header "Content-Type: application/json" --data '{"id": 1, "data": {"dataset": "FRED/GDP"}}' localhost:5000
 {
   "data": 21157.635, 
   "jobRunID": 1, 
