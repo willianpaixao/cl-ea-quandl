@@ -19,11 +19,11 @@ def test_request_fred(client):
     rv = client.post('/', json={"id": 1, "data": {"dataset": "FRED/GDP"}})
     json_data = rv.get_json()
     assert json_data.get('statusCode') == 200
-    assert 'result' in json_data
+    assert 'result' in json_data['data']
     rv = client.post('/', json={"id": 2, "data": {"dataset": "FRED/UNRATE", "rows": 2}})
     json_data = rv.get_json()
     assert json_data.get('statusCode') == 200
-    assert 'result' in json_data
+    assert 'result' in json_data['data']
 
 
 def test_extra_params(client):
@@ -34,7 +34,7 @@ def test_extra_params(client):
                                 }})
     json_data = rv.get_json()
     assert json_data.get('statusCode') == 200
-    assert 'result' in json_data
+    assert 'result' in json_data['data']
 
 
 if __name__ == '__main__':
