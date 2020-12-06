@@ -28,8 +28,8 @@ def test_request_fred(client):
 
 def test_extra_params(client):
     rv = client.post('/', json={"id": "01acef78e00f45ca911f9202124fbabf",
-                                "data":{
-                                    "address":"0x795FB736ef447f649EBD462F35d6cC8437925fC0",
+                                "data": {
+                                    "address": "0x795FB736ef447f649EBD462F35d6cC8437925fC0",
                                     "dataset": "FRED/UNRATE"
                                 }})
     json_data = rv.get_json()
