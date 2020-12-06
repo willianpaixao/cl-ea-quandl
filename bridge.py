@@ -20,6 +20,9 @@ class Bridge:
             if 'rows' in data:
                 rows = data.get('rows')
             df = quandl.get(dataset=data.get('dataset'), rows=rows)
-            return df.to_json(orient='values')
+            if df['Value'].size == 1:
+                return df['Value'].get(0)
+            else:
+                return df['Value'].to_list()
         except Exception as e:
             raise e

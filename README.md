@@ -28,6 +28,20 @@ $ curl --request POST --header "Content-Type: application/json" --data '{"id": 1
 Now that you have a running adapter, look at the [Quandl API documentation](https://docs.quandl.com) for all possible parameters that can be passed
 and at the [Quandl feed explorer](https://www.quandl.com/search) to pick the data you need.
 
+### Examples
+You can explore the free (as in "free of charge") data feeds [here](https://www.quandl.com/search?filters=%5B%22Free%22%5D).
+Most common usages are for macroeconomic data and financial indexes, some examples are:
+
+| Dataset           | Description                      |
+| ----------------- | -------------------------------- |
+|`FRED/GDP`         | USA's Gross Domestic Product     |
+|`FRED/UNRATE`      | USA's Civilian Unemployment Rate |
+|`FRED/GFDEBTN`     | USA's Federal Public Debt        |
+|`NASDAQOMX/OMXS30` | OMX Stockholm 30 Index           |
+|`BCB/11`           | Brazilian interest rate          |
+
+> NOTE: You can purchase a premium feed but this is out of the scope of this service.
+
 ## Development
 You can easily build with Docker, by running:
 ``` bash
