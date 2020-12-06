@@ -17,9 +17,11 @@ To quickly test, make a request using `curl`:
 ``` bash
 $ curl --request POST --header "Content-Type: application/json" --data '{"id": 1, "data": {"dataset": "FRED/GDP"}}' localhost:5000
 {
-  "data": 21157.635, 
-  "jobRunID": 1, 
-  "result": 21157.635, 
+  "data": {
+    "dataset": "FRED/GDP",
+    "result": 21157.122
+  },
+  "jobRunID": 1,
   "statusCode": 200
 }
 ```
@@ -47,8 +49,18 @@ You can easily build with Docker, by running:
 ``` bash
 $ docker image build --tag cl-ea-quandl:latest .
 ```
+
+Alternatively you can run locally without Docker with:
+``` bash
+$ QUANDL_API_KEY=[INSERT HERE YOUR KEY] FLASK_ENV=development flask run
+```
+
 ### Testing
 Make sure you have installed all dependencies using `Pipfile`, then run:
 ```
 $ FLASK_ENV=testing pytest --setup-show
 ```
+
+### Contributing
+Did you run into a bug? Please create an issue.
+Do you want to contribute? All PRs are welcome.

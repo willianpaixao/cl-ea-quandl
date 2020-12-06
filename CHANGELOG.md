@@ -8,4 +8,4 @@ First stable version. Basic features are:
 * `production`, `development` or `testing` can be set for `FLASK_ENV` to setup your application environment
 * `dataset` and `rows` are the only parameter accepted at the moment
 * Pytest is used to run a few raw tests
-* Among other features.This is a preliminary release that should receive more documentation and tests soon 
+* Among other features.This is a preliminary release that should receive more documentation and tests soon
