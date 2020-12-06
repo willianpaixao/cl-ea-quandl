@@ -12,7 +12,3 @@ repos:
   hooks:
   - id: bandit
     args: ["--skip", "B101"]
-- repo: https://gitlab.com/devopshq/gitlab-ci-linter
-  rev: 'v1.0.0'
-  hooks:
-  - id: gitlab-ci-linter

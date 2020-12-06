@@ -1,37 +1,72 @@
-## Welcome to GitHub Pages
+# Quandl External Adapter for Chainlink
 
-You can use the [editor on GitHub](https://github.com/willianpaixao/cl-ea-quandl/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+### Example with a Solidity Smart Contract
+```
+pragma solidity ^0.6.0;
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+import "https://raw.githubusercontent.com/smartcontractkit/chainlink/develop/evm-contracts/src/v0.6/ChainlinkClient.sol";
 
-### Markdown
+contract QuandlAPIConsumer is ChainlinkClient {
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    uint256 public gdp;
 
-```markdown
-Syntax highlighted code block
+    address private oracle;
+    bytes32 private jobId;
+    uint256 private fee;
 
-# Header 1
-## Header 2
-### Header 3
+    /**
+     * Network: Rinkeby
+     * Oracle: Chainlink - 0x795FB736ef447f649EBD462F35d6cC8437925fC0
+     * Job ID: Chainlink - 32219aca13bc45d8b70e7de95d4ae59d
+     * Fee: 0.1 LINK
+     */
+    constructor() public {
+        setPublicChainlinkToken();
+        oracle = 0x795FB736ef447f649EBD462F35d6cC8437925fC0;
+        jobId = "32219aca13bc45d8b70e7de95d4ae59d";
+        fee = 0.1 * 10 ** 18; // 0.1 LINK
+    }
 
-- Bulleted
-- List
+    function requestVolumeData() public returns (bytes32 requestId)
+    {
 
-1. Numbered
-2. List
+        Chainlink.Request memory request = buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
+        request.add("dataset", "FRED/GDP");
+        return sendChainlinkRequestTo(oracle, request, fee);
+    }
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+    /**
+     * Receive the response in the form of uint256
+     */
+    function fulfill(bytes32 _requestId, uint256 _gdp) public recordChainlinkFulfillment(_requestId)
+    {
+        gdp = _gdp;
+    }
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/willianpaixao/cl-ea-quandl/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Job Specification
+```
+{
+    "initiators": [
+        {
+            "type": "runlog",
+            "params": {
+                "address": "0x795fb736ef447f649ebd462f35d6cc8437925fc0"
+            }
+        }
+    ],
+    "tasks": [
+        {
+            "type": "quandl",
+            "confirmations": 0
+        },
+        {
+            "type": "ethuint256"
+        },
+        {
+            "type": "ethtx"
+        }
+    ]
+}
+```
