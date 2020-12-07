@@ -29,7 +29,7 @@ def create_app(test_config=None):
 
     @app.route('/healthcheck', methods=['GET'])
     def healthcheck():
-        return jsonify()
+        return 'OK'
 
     return app
 
