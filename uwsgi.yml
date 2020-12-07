@@ -1,0 +1,8 @@
+uwsgi:
+  enable-metrics: 1
+  http: 0.0.0.0:5000
+  master: 1
+  module: app:create_app()
+  processes: 4
+  stats: 0.0.0.0:1717
+  stats-http: 1

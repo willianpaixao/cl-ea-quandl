@@ -2,3 +2,4 @@ Flask==1.1.2
 Quandl==3.5.3
 requests==2.25.0
 schema==0.7.2
+uWSGI==2.0.19.1
