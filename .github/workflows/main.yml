@@ -43,9 +43,22 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Gather labels
+        id: pre
+        run: |
+          DOCKER_IMAGE=willianpaixao/cl-ea-quandl
+          VERSION=latest
+          [[ $GITHUB_REF == refs/tags/* ]] && VERSION=${GITHUB_REF#refs/tags/}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo ::set-output name=tags::${DOCKER_IMAGE}:${VERSION}
+          echo ::set-output name=version::${VERSION}
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.2.0
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          tags: willianpaixao/cl-ea-quandl:latest
+          tags: ${{ steps.pre.outputs.tags }}
           platforms: linux/386,linux/amd64,linux/arm64
+          labels: |
+            org.opencontainers.image.created=${{ steps.pre.outputs.created }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.pre.outputs.version }}
