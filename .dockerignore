@@ -1,6 +1,8 @@
 .git/
+.github/
 docs/
+instance/
 tests/
-Pipfile*
 *.md
+Pipfile*
 LICENSE
