@@ -11,13 +11,15 @@ RUN apt-get install --yes curl
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
+RUN pip install --no-cache-dir --requirement requirements.txt
 COPY . .
 
+USER nobody
+
+EXPOSE 1717/tcp
 EXPOSE 5000/tcp
 
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+ENTRYPOINT [ "uwsgi" ]
+CMD [ "--yaml", "uwsgi.yml" ]
 
 HEALTHCHECK CMD curl -f http://localhost:5000/healthcheck || exit 1

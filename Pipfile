@@ -8,6 +8,7 @@ flask = "*"
 quandl = "*"
 requests = "*"
 schema = "*"
+uwsgi = "*"
 
 [dev-packages]
 flake8 = "*"
