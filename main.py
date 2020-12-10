@@ -1,5 +1,26 @@
+from flask import Blueprint, jsonify, request
 from schema import Schema, And, Optional
+
 from bridge import Bridge
+
+api = Blueprint('api', __name__)
+
+
+def index(request):
+    data = request.get_json()
+    if data == '':
+        data = {}
+    adapter = Adapter(data)
+    return jsonify(adapter.result), adapter.result['statusCode']
+
+
+@api.route('/', methods=['POST'])
+def call_adapter():
+    data = request.get_json()
+    if data == '':
+        data = {}
+    adapter = Adapter(data)
+    return jsonify(adapter.result), adapter.result['statusCode']
 
 
 class Adapter:

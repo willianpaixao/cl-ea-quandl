@@ -50,6 +50,10 @@ You can easily build with Docker, by running:
 $ docker image build --tag cl-ea-quandl:latest .
 ```
 
+``` bash
+$ gcloud functions deploy cl-ea-quandl --set-env-vars QUANDL_API_KEY=[INSERT HERE YOUR KEY] --entry-point index --runtime python38 --memory 128MB --trigger-http --allow-unauthenticated
+```
+
 Alternatively you can run locally without Docker with:
 ``` bash
 $ QUANDL_API_KEY=[INSERT HERE YOUR KEY] FLASK_ENV=development flask run

@@ -1,3 +1,5 @@
+import os
+
 import quandl
 
 from flask import current_app
@@ -6,7 +8,10 @@ from flask import current_app
 class Bridge:
 
     def __init__(self):
-        quandl.ApiConfig.api_key = current_app.config['QUANDL_API_KEY']
+        if 'QUANDL_API_KEY' in current_app.config:
+            quandl.ApiConfig.api_key = current_app.config['QUANDL_API_KEY']
+        else:
+            quandl.ApiConfig.api_key = os.environ['QUANDL_API_KEY']
 
     def request(self, data):
         """

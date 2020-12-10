@@ -1,9 +1,7 @@
 import logging
 import os
 
-from flask import Flask, jsonify, request
-
-from adapter import Adapter
+from flask import Flask, request
 
 
 def create_app(test_config=None):
@@ -19,13 +17,8 @@ def create_app(test_config=None):
         app.logger.debug('Headers: %s', request.headers)
         app.logger.debug('Body: %s', request.get_data())
 
-    @app.route('/', methods=['POST'])
-    def call_adapter():
-        data = request.get_json()
-        if data == '':
-            data = {}
-        adapter = Adapter(data)
-        return jsonify(adapter.result), adapter.result['statusCode']
+    from main import api
+    app.register_blueprint(api)
 
     @app.route('/healthcheck', methods=['GET'])
     def healthcheck():
@@ -39,11 +32,10 @@ def configure_app(app):
 
     :param app: Flask app instance
     """
-    if app.config['ENV'] == 'production':
-        app.config.from_object('config.ProductionConfig')
+    app.config.from_object('config.ProductionConfig')
     if app.config['ENV'] == 'development':
         app.config.from_object('config.DevelopmentConfig')
-    if app.config['ENV'] == 'testing':
+    elif app.config['ENV'] == 'testing':
         app.config.from_object('config.TestingConfig')
 
     if 'SECRETS_FILE' in os.environ:
