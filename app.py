@@ -1,7 +1,7 @@
 import logging
 import os
 
-from flask import Flask, request
+from flask import Flask, jsonify, request
 
 from cache import cache
 
@@ -27,6 +27,15 @@ def create_app(test_config=None):
     @app.route('/healthcheck', methods=['GET'])
     def healthcheck():
         return 'OK'
+
+    @app.route('/version', methods=['GET'])
+    def version():
+        return jsonify(
+            {"created": os.environ['CREATED'],
+             "revision": os.environ['REVISION'],
+             "version": os.environ['VERSION']
+             }
+        )
 
     return app
 

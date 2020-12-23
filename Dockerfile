@@ -3,6 +3,12 @@ FROM python:3.8
 LABEL org.opencontainers.image.authors="Willian Paixao <willian@ufpa.br>"
 LABEL org.opencontainers.image.source="https://github.com/willianpaixao/cl-ea-quandl"
 
+ARG created
+ARG revision
+ARG version=local
+ENV CREATED=$created
+ENV REVISION=$revision
+ENV VERSION=$version
 ENV DEBIAN_FRONTEND noninteractive
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
