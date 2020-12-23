@@ -67,3 +67,6 @@ class Adapter:
             'error': f'There was an error: {error}',
             'statusCode': 500,
         }
+
+    def __repr__(self):
+        return f'Adapter({self.id!r}, {self.request_data!r})'

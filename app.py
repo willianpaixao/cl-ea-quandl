@@ -3,6 +3,8 @@ import os
 
 from flask import Flask, request
 
+from cache import cache
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -16,6 +18,8 @@ def create_app(test_config=None):
     def log_request_info():
         app.logger.debug('Headers: %s', request.headers)
         app.logger.debug('Body: %s', request.get_data())
+
+    cache.init_app(app)
 
     from main import api
     app.register_blueprint(api)

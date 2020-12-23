@@ -4,6 +4,8 @@ import quandl
 
 from flask import current_app
 
+from cache import cache
+
 
 class Bridge:
 
@@ -13,12 +15,14 @@ class Bridge:
         else:
             quandl.ApiConfig.api_key = os.environ['QUANDL_API_KEY']
 
+    @cache.memoize()
     def request(self, data):
         """
 
         :param data: JSON Object to feed Quandl API request
         :return: JSON object with the response from he API
         """
+        current_app.logger.debug("Cache missed")
         try:
             rows = 1
             if 'rows' in data:
@@ -30,3 +34,6 @@ class Bridge:
                 return df['Value'].to_list()
         except Exception as e:
             raise e
+
+    def __repr__(self):
+        return f'{"Bridge()"}'
